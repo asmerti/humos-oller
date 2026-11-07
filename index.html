@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Humos Oller · Tienda de humo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#e7ebee; --surface:#f6f8f9; --ink:#1c2831; --muted:#566673; --line:#c3cdd4; --accent:#e3b81a; --accent-ink:#1c2831;
+  --h:"Bricolage Grotesque","Trebuchet MS",sans-serif; --b:"Work Sans","Segoe UI",sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#13181c;--surface:#1b2227;--ink:#e8edf0;--muted:#98a8b3;--line:#2f3b43;--accent:#f0c929;--accent-ink:#13181c}
+}
+:root[data-theme="dark"]{--bg:#13181c;--surface:#1b2227;--ink:#e8edf0;--muted:#98a8b3;--line:#2f3b43;--accent:#f0c929;--accent-ink:#13181c}
+html{scroll-padding-top:env(safe-area-inset-top,0px);color-scheme:light dark}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--b);line-height:1.6;font-size:17px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px clamp(16px,4vw,48px)}
+.logo{font-family:var(--h);font-weight:800;font-size:1.3rem;text-decoration:none;letter-spacing:-.02em}
+nav{display:flex;gap:20px;align-items:center}
+nav a{text-decoration:none;color:var(--muted);font-size:.95rem}
+nav a:hover{color:var(--ink)}
+.cartbtn{font:inherit;font-weight:500;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:8px 16px;cursor:pointer}
+.hero{position:relative;overflow:hidden;padding:clamp(64px,12vw,140px) clamp(16px,4vw,48px) clamp(72px,10vw,120px);min-height:70vh;display:flex;align-items:flex-end}
+.puffs{position:absolute;inset:0;pointer-events:none}
+.puff{position:absolute;bottom:-120px;border-radius:50%;background:radial-gradient(circle,var(--muted) 0%,transparent 68%);opacity:0;filter:blur(18px);animation:rise 14s linear infinite}
+.puff:nth-child(1){left:6%;width:240px;height:240px;animation-delay:0s}
+.puff:nth-child(2){left:24%;width:340px;height:340px;animation-delay:-4s;animation-duration:17s}
+.puff:nth-child(3){left:48%;width:260px;height:260px;animation-delay:-8s}
+.puff:nth-child(4){left:68%;width:380px;height:380px;animation-delay:-2s;animation-duration:19s}
+.puff:nth-child(5){left:86%;width:220px;height:220px;animation-delay:-11s}
+@keyframes rise{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:.5}100%{transform:translate(40px,-85vh) scale(1.7);opacity:0}}
+.hero-in{position:relative;max-width:900px}
+h1{font-family:var(--h);font-weight:800;font-size:clamp(2.8rem,9vw,6.4rem);line-height:.95;letter-spacing:-.04em;margin:0 0 24px}
+.lead{font-size:1.2rem;max-width:56ch;color:var(--muted);margin:0 0 32px}
+.btn{display:inline-block;font:inherit;font-weight:500;background:var(--accent);color:var(--accent-ink);border:0;border-radius:6px;padding:14px 26px;text-decoration:none;cursor:pointer}
+section{padding:clamp(48px,8vw,96px) clamp(16px,4vw,48px)}
+h2{font-family:var(--h);font-weight:800;font-size:clamp(1.9rem,5vw,3rem);letter-spacing:-.03em;line-height:1.05;margin:0 0 12px}
+.sub{color:var(--muted);max-width:60ch;margin:0 0 28px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.chip{font:inherit;font-size:.92rem;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 16px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:14px 14px 14px 2px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.jar{width:56px;height:56px;border-radius:50% 50% 46% 54%;filter:blur(1.5px);margin-bottom:4px}
+.item h3{font-family:var(--h);font-size:1.25rem;line-height:1.15;margin:0}
+.item p{margin:0;color:var(--muted);font-size:.95rem;flex:1}
+.meta{font-size:.85rem;color:var(--muted)}
+.buy{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.price{font-family:var(--h);font-weight:800;font-size:1.2rem}
+.add{font:inherit;font-size:.92rem;background:var(--ink);color:var(--bg);border:0;border-radius:6px;padding:8px 14px;cursor:pointer}
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,5vw,64px);border-top:1px solid var(--line);align-items:start}
+.portrait{aspect-ratio:4/5;border-radius:50% 50% 8px 8px;background:radial-gradient(ellipse at 50% 30%,var(--muted),transparent 70%),var(--surface);border:1px solid var(--line);display:flex;align-items:flex-end;justify-content:center;padding:24px;font-family:var(--h);font-weight:800;font-size:clamp(3rem,10vw,6rem);letter-spacing:-.05em}
+blockquote{margin:24px 0 0;padding-left:18px;border-left:4px solid var(--accent);font-family:var(--h);font-size:1.3rem;line-height:1.3}
+.cart{position:fixed;right:0;top:0;bottom:0;width:min(380px,100%);background:var(--surface);border-left:1px solid var(--line);z-index:40;padding:calc(24px + env(safe-area-inset-top,0px)) 24px calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;gap:12px;overflow:auto}
+.cart.open{transform:none}
+.cart ul{list-style:none;margin:0;padding:0;flex:1}
+.cart li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.cart .row{display:flex;gap:8px;flex-wrap:wrap}
+.link{font:inherit;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:0}
+.note{min-height:3em;color:var(--muted);font-size:.95rem}
+footer{border-top:1px solid var(--line);padding:32px clamp(16px,4vw,48px);color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+@media (max-width:720px){nav a{display:none}.about{grid-template-columns:1fr}.portrait{max-width:280px}}
+@media (prefers-reduced-motion:reduce){.puff{animation:none;opacity:.25;bottom:10%}.cart{transition:none}}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#inicio">Humos Oller</a>
+  <nav><a href="#catalogo">Catálogo</a><a href="#javier">Javier</a><button class="cartbtn" id="open">Cesta (<span id="count">0</span>)</button></nav>
+</header>
+
+<main id="inicio">
+<div class="hero">
+  <div class="puffs" aria-hidden="true"><i class="puff"></i><i class="puff"></i><i class="puff"></i><i class="puff"></i><i class="puff"></i></div>
+  <div class="hero-in">
+    <h1>Humo de todas las clases.</h1>
+    <p class="lead">Desde el humo blanco de un cónclave hasta el de la tostada que se te ha olvidado. Dieciséis variedades, todas envasadas a mano por Javier Oller.</p>
+    <a class="btn" href="#catalogo">Ver el catálogo</a>
+  </div>
+</div>
+
+<section id="catalogo">
+  <h2>El catálogo completo</h2>
+  <p class="sub">Elige por categoría. Todo el humo se vende sin envase, porque se escapa.</p>
+  <div class="chips" id="chips" role="group" aria-label="Filtrar por categoría"></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="about" id="javier">
+  <div class="portrait" aria-hidden="true">JO</div>
+  <div>
+    <h2>Javier Oller, dueño y ahumador jefe</h2>
+    <p>Javier abrió la tienda con una idea clara: si hay gente que vende humo sin tenerlo, alguien tenía que venderlo de verdad. Prueba cada lote antes de ponerlo en el mostrador y lleva el inventario a ojo, que es como mejor se ve el humo.</p>
+    <p>Atiende en persona, responde a todos los mensajes y no ha devuelto nunca un humo por insatisfacción. Dice que es porque no hay forma de devolverlo.</p>
+    <blockquote>“Un buen humo se nota enseguida: sube, se ve y desaparece sin avisar.” — Javier Oller</blockquote>
+  </div>
+</section>
+</main>
+
+<footer><span>© 2026 Humos Oller. Propietario: Javier Oller.</span><span>Los precios no incluyen el humo que se escape durante el transporte.</span></footer>
+
+<aside class="cart" id="cart" aria-label="Cesta" aria-hidden="true">
+  <div class="row" style="justify-content:space-between;align-items:center"><h2 style="font-size:1.6rem;margin:0">Tu cesta</h2><button class="link" id="close">Cerrar</button></div>
+  <ul id="list"></ul>
+  <div class="row" style="justify-content:space-between"><strong>Total</strong><strong id="total">0,00 €</strong></div>
+  <div class="row"><button class="btn" id="pay">Hacer pedido</button><button class="link" id="empty">Vaciar cesta</button></div>
+  <p class="note" id="note" role="status"></p>
+</aside>
+
+<script>
+var P=[
+["Humo blanco de cónclave","Ceremonia","Anuncia que hay nuevo papa. Una fumata limpia, clara y de gran solemnidad.",14.9,"#f2f4f5"],
+["Humo negro de cónclave","Ceremonia","Para cuando todavía no hay acuerdo. Denso, oscuro y con mucha paciencia.",12.5,"#2d3438"],
+["Humo de barbacoa","Cocina","Brasas de encina y grasa de chuletón. Se huele a tres calles de distancia.",8.9,"#b87a4b"],
+["Humo de tostada olvidada","Cocina","El clásico de las mañanas con prisa. Activa la alarma de incendios al instante.",3.5,"#6b5a4a"],
+["Humo de sartén quemada","Cocina","Aceite que se pasó de temperatura. Intenso, con carácter y bastante tos.",4.2,"#8a8f93"],
+["Humo ahumado de salmón","Cocina","Madera de haya y sal gorda. Se recomienda envasar junto al salmón.",11.0,"#d98f6e"],
+["Humo de leña de chimenea","Naturaleza","Roble seco para tardes de invierno. Huele a hogar y a manta.",7.5,"#a1683a"],
+["Humo de volcán","Naturaleza","Recogido con permiso en la cima. Contiene cenizas y mal humor geológico.",39.0,"#7f4b3e"],
+["Niebla de Londres","Naturaleza","Húmeda, gris y británica. Ideal para novelas de misterio y paseos dramáticos.",16.0,"#b8c2c9"],
+["Humo de incienso","Misticismo","Sándalo y mirra para meditar o para disimular lo de la sartén quemada.",6.9,"#c9a96b"],
+["Humo de pipa de Sherlock","Misticismo","Tabaco imaginario y mucha deducción. Elemental, querido cliente.",18.5,"#8c7b6b"],
+["Humo de pipa de la paz","Misticismo","Para cerrar tratos y acabar con discusiones familiares. Se fuma sin prisa.",21.0,"#d2bb8d"],
+["Humo de mago, puf incluido","Espectáculo","Aparece, desorienta y desaparece. Trae conejo bajo pedido.",24.9,"#8b6fc4"],
+["Humo de bengala de colores","Espectáculo","Rojo, verde o azul, según el día. Ideal para estadios y despedidas.",9.9,"#d94b4b"],
+["Humo de locomotora de vapor","Industria","Carbón y nostalgia. Incluye un silbido de regalo con cada bocanada.",29.0,"#59656d"],
+["Humo de dragón (bocanada)","Espectáculo","Edición limitada. Javier no revela de dónde lo saca ni cómo.",99.0,"#e0742f"]
+];
+var cats=["Todos"].concat(P.map(function(p){return p[1]}).filter(function(c,i,a){return a.indexOf(c)===i}));
+var cur="Todos",cart={};
+var $=function(i){return document.getElementById(i)};
+var eur=function(n){return n.toFixed(2).replace(".",",")+" €"};
+function chips(){var h="";cats.forEach(function(c){h+='<button class="chip" aria-pressed="'+(c===cur)+'" data-c="'+c+'">'+c+'</button>'});$("chips").innerHTML=h}
+function grid(){var h="";P.forEach(function(p,i){if(cur!=="Todos"&&p[1]!==cur)return;
+h+='<article class="item"><div class="jar" style="background:'+p[4]+'"></div><span class="meta">'+p[1]+'</span><h3>'+p[0]+'</h3><p>'+p[2]+'</p><div class="buy"><span class="price">'+eur(p[3])+'</span><button class="add" data-i="'+i+'">Añadir</button></div></article>'});
+$("grid").innerHTML=h}
+function render(){var n=0,t=0,h="";Object.keys(cart).forEach(function(i){var q=cart[i];n+=q;t+=q*P[i][3];h+='<li><span>'+q+' × '+P[i][0]+'</span><span>'+eur(q*P[i][3])+'</span></li>'});
+$("count").textContent=n;$("total").textContent=eur(t);$("list").innerHTML=h||'<li>La cesta está vacía. Añade algo de humo.</li>'}
+function toggle(o){$("cart").classList.toggle("open",o);$("cart").setAttribute("aria-hidden",!o)}
+$("chips").onclick=function(e){var c=e.target.getAttribute("data-c");if(c){cur=c;chips();grid()}};
+$("grid").onclick=function(e){var i=e.target.getAttribute("data-i");if(i!==null){cart[i]=(cart[i]||0)+1;render();var b=e.target;b.textContent="Añadido";setTimeout(function(){b.textContent="Añadir"},900)}};
+$("open").onclick=function(){toggle(true)};$("close").onclick=function(){toggle(false)};
+$("empty").onclick=function(){cart={};$("note").textContent="";render()};
+$("pay").onclick=function(){$("note").textContent=Object.keys(cart).length?"Pedido enviado a Javier Oller. Llegará en cuanto se disipe el humo de la preparación.":"Añade algo antes de hacer el pedido.";if(Object.keys(cart).length){cart={};render()}};
+chips();grid();render();
+</script>
+</body>
+</html>
